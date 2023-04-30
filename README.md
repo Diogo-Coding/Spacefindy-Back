@@ -13,6 +13,7 @@ npm run start
 
 # descarga y puesta del proyecto
 
+1. Necesitas de una clave ssh (preguntame)
 ```
 git clone git@github.com:Diogo-Coding/spacefindy-backend.git
 ```
