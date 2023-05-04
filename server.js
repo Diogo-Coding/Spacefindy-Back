@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"))
 app.use(helmet());
-const whitelist = ['https://localhost'];
+const whitelist = ['https://localhost:8083'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -27,52 +27,52 @@ const corsOptions = {
   }
 };
 
-app.use(function(req, res, next) {
-  console.log(`${req.method} - ${req.url}`);
-  next();
-});
+// app.use(function(req, res, next) {
+//   console.log(`${req.method} - ${req.url}`);
+//   next();
+// });
 
 app.use(cors(corsOptions))
 
 // === HTTPS === //
-const https = require('https');
-const fs = require('fs');
-const options = {
-  key: fs.readFileSync('./localhost-key.pem'),
-  cert: fs.readFileSync('./localhost.pem'),
-};
-https
-  .createServer(options, app)
-  .listen(PORT);
+// const https = require('https');
+// const fs = require('fs');
+// const options = {
+//   key: fs.readFileSync('./localhost-key.pem'),
+//   cert: fs.readFileSync('./localhost.pem'),
+// };
+// https
+//   .createServer(options, app)
+//   .listen(PORT);
 
 
 // === API REMOTONIST API/DB === //
-// let con;
-// function handleDisconnect() {
-//   con = mysql.createConnection({
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASS,
-//     database: process.env.DB_NAME,
-//   })
-//   con.connect(function(err) {
-//     if (err) {
-//       console.log('Error connecting to database: ', err)
-//       setTimeout(handleDisconnect, 2000)
-//     } else {
-//       console.log('Connected to DB')
-//     }
-//   })
-//   con.on('error', function (err) {
-//     console.log('db error', err)
-//     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-//       handleDisconnect()
-//     } else {
-//       throw err
-//     }
-//   })
-// }
-// handleDisconnect()
+let con;
+function handleDisconnect() {
+  con = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+  })
+  con.connect(function(err) {
+    if (err) {
+      console.log('Error connecting to database: ', err)
+      setTimeout(handleDisconnect, 2000)
+    } else {
+      console.log('Connected to DB')
+    }
+  })
+  con.on('error', function (err) {
+    console.log('db error', err)
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect()
+    } else {
+      throw err
+    }
+  })
+}
+handleDisconnect()
 
 app.get('/getAllUsers', (req, res) => {
   let sentence = `SELECT * FROM users`
@@ -153,3 +153,5 @@ app.post('/checkLoginDB', (req, res) => {
 app.get("/", (req, res) => {
   res.send("Hello World!")
 })
+
+app.listen(9000)
