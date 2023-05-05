@@ -104,8 +104,7 @@ app.post('/deleteUser', (req, res) => {
 app.post('/createUser', (req, res) => {
   let username = req.body.username
   let password = req.body.password
-  let role = req.body.role
-  let sentence = `INSERT INTO users (username, password, role) VALUES ('${username}', '${password}', '${role}')`
+  let sentence = `INSERT INTO users (username, password) VALUES ('${username}', '${password}')`
   con.query(sentence, function(err, results, fields) {
       // console.log(results) // results contains rows returned by server
       // console.log(fields) // fields contains extra meta data about results, if available
