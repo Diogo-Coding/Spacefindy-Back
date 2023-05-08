@@ -27,11 +27,6 @@ const corsOptions = {
   }
 };
 
-// app.use(function(req, res, next) {
-//   console.log(`${req.method} - ${req.url}`);
-//   next();
-// });
-
 app.use(cors(corsOptions))
 
 // === HTTPS === //
@@ -104,13 +99,17 @@ app.post('/deleteUser', (req, res) => {
 app.post('/createUser', (req, res) => {
   let username = req.body.username
   let password = req.body.password
-  let sentence = `INSERT INTO users (username, password) VALUES ('${username}', '${password}')`
+  let name = req.body.name
+  let surname = req.body.surname
+  let created_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  let sentence = `INSERT INTO users (username, password, name, surname, created_at) VALUES ('${username}', '${password}', '${name}', '${surname}','${created_at}')`
   con.query(sentence, function(err, results, fields) {
       // console.log(results) // results contains rows returned by server
       // console.log(fields) // fields contains extra meta data about results, if available
-      res.json(results)
-      if (err) {
-        console.log(err)
+      if (!err) {
+        res.json(results)
+      } else {
+        res.status(409).json({ error: 'Ya existe un usuario con ese nombre de usuario'})
       }
     }
   )
