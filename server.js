@@ -68,6 +68,19 @@ function handleDisconnect() {
   })
 }
 handleDisconnect()
+app.post('/getUser', (req, res) => {
+  let username = req.body.username
+  let sentence = `SELECT * FROM users WHERE username = '${username}'`
+  con.query(sentence, function(err, results, fields) {
+      // console.log(results) // results contains rows returned by server
+      // console.log(fields) // fields contains extra meta data about results, if available
+      res.json(results) 
+      if (err) {
+        console.log(err)
+      }
+    }
+  )
+})
 
 app.get('/getAllUsers', (req, res) => {
   let sentence = `SELECT * FROM users`
@@ -85,6 +98,26 @@ app.get('/getAllUsers', (req, res) => {
 app.post('/deleteUser', (req, res) => {
   let id = req.body.id
   let sentence = `DELETE FROM users WHERE id = ${id}`
+  con.query(sentence, function(err, results, fields) {
+      // console.log(results) // results contains rows returned by server
+      // console.log(fields) // fields contains extra meta data about results, if available
+      res.json(results)
+      if (err) {
+        console.log(err)
+      }
+    }
+  )
+})
+
+app.post('/updateUser', (req, res) => {
+  let username = req.body.username
+  let name = req.body.name
+  let surname = req.body.surname
+  let email = req.body.email
+  if (email == 'null') email = ''
+  let profile_desc = req.body.profile_desc
+
+  let sentence = `UPDATE users SET name='${name}', surname='${surname}', email='${email}', profile_desc='${profile_desc}' WHERE username = '${username}'`
   con.query(sentence, function(err, results, fields) {
       // console.log(results) // results contains rows returned by server
       // console.log(fields) // fields contains extra meta data about results, if available
