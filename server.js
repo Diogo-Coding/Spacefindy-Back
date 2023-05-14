@@ -179,6 +179,41 @@ app.post('/checkLoginDB', (req, res) => {
    })
 })
 
+
+// Storages
+
+app.post('/createStorage', (req, res) => {
+  let id_username = req.body.id_username
+  let title = req.body.title
+  let description = req.body.description
+  let location = req.body.location
+  let surface = req.body.surface
+  let status = req.body.status
+  let published = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  let sentence = `INSERT INTO storages (id_username, title, description, location, surface, status, published) VALUES ('${id_username}', '${title}', '${description}', '${location}','${surface}','${status}', '${published}')`
+  con.query(sentence, function(err, results, fields) {
+      // console.log(results) // results contains rows returned by server
+      // console.log(fields) // fields contains extra meta data about results, if available
+      if (!err) {
+        res.json(results)
+      }
+    }
+  )
+})
+
+app.post('/getStoragesFromUser', (req, res) => {
+  let id_username = req.body.id_username
+
+  let sentence = `SELECT * FROM storages WHERE id_username = '${id_username}'`
+  con.query(sentence, function(err, results, fields) {
+     // console.log(results)
+     res.json(results)
+     if (err) {
+        console.log(err)
+     }
+  })
+})
+
 // === API CALLS === //
 
 app.get("/", (req, res) => {
