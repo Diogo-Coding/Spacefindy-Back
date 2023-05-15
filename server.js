@@ -8,6 +8,7 @@ const cors = require("cors")
 const morgan = require("morgan")
 const { default: fetch } = require("node-fetch")
 const mysql = require('mysql2')
+const multer = require('multer');
 
 const PORT = 9000
 const app = express()
@@ -213,6 +214,36 @@ app.post('/getStoragesFromUser', (req, res) => {
      }
   })
 })
+
+// // Configuración de multer para manejar la carga de archivos
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     let destinationFolder = 'uploads/';
+//     cb(null, destinationFolder);
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   }
+// });
+
+// const upload = multer({ storage: storage });
+
+// // Ruta para cargar archivos
+// app.post('/upload', upload.single('file'), (req, res) => {
+//   res.send('Archivo cargado correctamente.');
+// });
+
+// // Ruta para mostrar una imagen
+// app.get('/images/:filename', (req, res) => {
+//   const filename = req.params.filename;
+//   res.sendFile(`${__dirname}/uploads/${filename}`);
+// });
+
+// // Ruta para mostrar un video
+// app.get('/videos/:filename', (req, res) => {
+//   const filename = req.params.filename;
+//   res.sendFile(`${__dirname}/uploads/${filename}`);
+// });
 
 // === API CALLS === //
 
