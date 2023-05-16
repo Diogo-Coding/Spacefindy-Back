@@ -188,10 +188,12 @@ app.post('/createStorage', (req, res) => {
   let title = req.body.title
   let description = req.body.description
   let location = req.body.location
+  let ccaa = req.body.ccaa
+  let prov = req.body.prov
   let surface = req.body.surface
   let status = req.body.status
   let published = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  let sentence = `INSERT INTO storages (id_username, title, description, location, surface, status, published) VALUES ('${id_username}', '${title}', '${description}', '${location}','${surface}','${status}', '${published}')`
+  let sentence = `INSERT INTO storages (id_username, title, description, location, ccaa, prov, surface, status, published) VALUES ('${id_username}', '${title}', '${description}', '${location}','${ccaa}','${prov}','${surface}','${status}', '${published}')`
   con.query(sentence, function(err, results, fields) {
       // console.log(results) // results contains rows returned by server
       // console.log(fields) // fields contains extra meta data about results, if available
@@ -200,6 +202,19 @@ app.post('/createStorage', (req, res) => {
       }
     }
   )
+})
+
+app.post('/updateStorage', (req, res) => {
+  let storage = req.body.storage
+
+  let sentence = `UPDATE storages SET title='${storage.title}', description='${storage.description}', location='${storage.location}', surface='${storage.surface}', status='${storage.status}', ccaa='${storage.ccaa}', prov='${storage.prov}' WHERE id='${storage.id}'`
+  con.query(sentence, function(err, results, fields) {
+    // console.log(results)
+    res.json(results)
+    if (err) {
+       console.log(err)
+    }
+ })
 })
 
 app.post('/getStoragesFromUser', (req, res) => {
