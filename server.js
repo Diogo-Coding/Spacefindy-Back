@@ -230,6 +230,22 @@ app.post('/getStoragesFromUser', (req, res) => {
   })
 })
 
+app.post('/getStoragesBySearch', (req, res) => {
+  let ccaa = req.body.ccaa
+  let prov = req.body.prov
+
+  let sentence
+  if (prov) sentence = `SELECT * FROM storages WHERE ccaa='${ccaa}' && prov='${prov}'`
+  else sentence = `SELECT * FROM storages WHERE ccaa='${ccaa}'`
+  con.query(sentence, function(err, results, fields) {
+     // console.log(results)
+     res.json(results)
+     if (err) {
+        console.log(err)
+     }
+  })
+})
+
 // // Configuración de multer para manejar la carga de archivos
 // const storage = multer.diskStorage({
 //   destination: (req, file, cb) => {
