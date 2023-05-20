@@ -199,6 +199,8 @@ app.post('/createStorage', (req, res) => {
       // console.log(fields) // fields contains extra meta data about results, if available
       if (!err) {
         res.json(results)
+      } else {
+        console.log(err)
       }
     }
   )
@@ -237,6 +239,32 @@ app.post('/getStoragesBySearch', (req, res) => {
   let sentence
   if (prov) sentence = `SELECT * FROM storages WHERE ccaa='${ccaa}' && prov='${prov}'`
   else sentence = `SELECT * FROM storages WHERE ccaa='${ccaa}'`
+  con.query(sentence, function(err, results, fields) {
+     // console.log(results)
+     res.json(results)
+     if (err) {
+        console.log(err)
+     }
+  })
+})
+
+app.post('/getStorageById', (req, res) => {
+  let id = req.body.id
+
+  let sentence = `SELECT * FROM storages WHERE id='${id}'`
+  con.query(sentence, function(err, results, fields) {
+     // console.log(results)
+     res.json(results)
+     if (err) {
+        console.log(err)
+     }
+  })
+})
+
+app.post('/getUserFromStorage', (req, res) => {
+  let id = req.body.id
+
+  let sentence = `SELECT * FROM users WHERE id='${id}'`
   con.query(sentence, function(err, results, fields) {
      // console.log(results)
      res.json(results)
