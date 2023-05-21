@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `rents`
+--
+
+DROP TABLE IF EXISTS `rents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rents` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_storage` int DEFAULT NULL,
+  `id_user_rented` int DEFAULT NULL,
+  `rented_start` datetime DEFAULT NULL,
+  `rented_end` datetime DEFAULT NULL,
+  `rent_type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rents`
+--
+
+LOCK TABLES `rents` WRITE;
+/*!40000 ALTER TABLE `rents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `storages`
 --
 
@@ -48,6 +75,34 @@ INSERT INTO `storages` VALUES (1,7,'Trastero Actualizado','rgcefwfewq ewq f\ndcw
 UNLOCK TABLES;
 
 --
+-- Table structure for table `suscriptions`
+--
+
+DROP TABLE IF EXISTS `suscriptions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `suscriptions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_username` varchar(45) DEFAULT NULL,
+  `suscription_type` varchar(45) DEFAULT NULL,
+  `suscription_name` varchar(45) DEFAULT NULL,
+  `canceled` tinyint DEFAULT NULL,
+  `start` datetime DEFAULT NULL,
+  `finish` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `suscriptions`
+--
+
+LOCK TABLES `suscriptions` WRITE;
+/*!40000 ALTER TABLE `suscriptions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `suscriptions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -65,6 +120,8 @@ CREATE TABLE `users` (
   `email` varchar(45) DEFAULT NULL,
   `membership` tinyint DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
+  `tlf` varchar(45) DEFAULT NULL,
+  `birthday` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -76,7 +133,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (6,'elLucas','1234','No hay descripcion',0,'Lucas','Ordeño',NULL,0,'2023-05-08 20:40:33'),(7,'Ana','1234','Mi nombre es Ana, soy diseñadora y tengo varios trasteros para alquilar, CONTACTAME <3',0,'Ana','Ana','ana@ana.com',0,'2023-05-08 20:43:27'),(36,'Pedro','1234','Soy PEDROO!!!!',0,'Pedro','Pedro','a@a.com',0,'2023-05-08 21:39:47'),(37,'Antonio23','1234','No hay descripcion',0,'Antonio','Colmenero',NULL,0,'2023-05-20 21:55:36');
+INSERT INTO `users` VALUES (6,'elLucas','1234','No hay descripcion',0,'Lucas','Ordeño',NULL,0,'2023-05-08 20:40:33',NULL,NULL),(7,'Ana','1234','Mi nombre es Ana, soy diseñadora y tengo varios trasteros para alquilar, CONTACTAME <3',0,'Ana','Ana','ana@ana.com',0,'2023-05-08 20:43:27',NULL,NULL),(36,'Pedro','1234','Soy PEDROO!!!!',0,'Pedro','Pedro','a@a.com',0,'2023-05-08 21:39:47',NULL,NULL),(37,'Antonio23','1234','No hay descripcion',0,'Antonio','Colmenero',NULL,0,'2023-05-20 21:55:36',NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -89,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-20 23:08:05
+-- Dump completed on 2023-05-21 19:28:41
