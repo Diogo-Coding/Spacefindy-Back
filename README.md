@@ -1,42 +1,24 @@
-# spacefindy-backend
+# Spacefindy Backend
 
-1. Para instalar el node_modules
-```
-npm i
-```
+## Instalation of project
 
-2. Para encenderlo
-```
-npm run start
-```
+1. For run this project you will need the frontend project, visit `https://github.com/Diogo-Coding/spacefindy-app`.
 
+2. Clone the repo
+    ```
+    git clone https://github.com/Diogo-Coding/spacefindy-backend.git
+    ```
 
-# descarga y puesta del proyecto
+3. Modify the `.env` file with the DB configuration you have
 
-1. Necesitas de una clave ssh (preguntame)
-```
-git clone git@github.com:Diogo-Coding/spacefindy-backend.git
-```
+4. Import `SpacefindyDB.sql` file into your mysql as a database.
 
-# para subir archivos
+5. Install node modules
+  ```
+  npm install
+  ```
 
-1. Para añadir cambios
-```
-git add .
-```
-
-
-2. Para ver los cambios
-```
-git status
-```
-
-3. Para hacer un commit
-```
-git commit -m 'mensaje del commit'
-```
-
-4. Para subir finalmente
-```
-git push -u origin main
-```
+6. Start the server
+  ```
+  npm run start
+  ```

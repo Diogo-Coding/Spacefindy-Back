@@ -30,7 +30,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-// === HTTPS === //
+// === METODO HTTPS (HABILITAR CUANDO SE SUBA A SERVIDOR)=== //
 // const https = require('https');
 // const fs = require('fs');
 // const options = {
@@ -42,7 +42,7 @@ app.use(cors(corsOptions))
 //   .listen(PORT);
 
 
-// === API REMOTONIST API/DB === //
+// ===================================== API/DB ===================================== //
 let con;
 function handleDisconnect() {
   con = mysql.createConnection({
@@ -69,6 +69,7 @@ function handleDisconnect() {
   })
 }
 handleDisconnect()
+
 app.post('/getUser', (req, res) => {
   let username = req.body.username
   let sentence = `SELECT * FROM users WHERE username = '${username}'`
